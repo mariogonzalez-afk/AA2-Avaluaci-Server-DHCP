@@ -25,8 +25,8 @@ sudo apt upgrade
 sudo apt install wireshark
 ```
 
-<img src="./img/1.png" width="750">
-<img src="./img/2.png" width="895">
+![imatge](<./img/1.png>)
+![imatge](<./img/2.png>)
 
 Al instal·lar el paquet `wireshark-common`, el sistema pregunta si volem permetre que els usuaris no superusuaris puguin capturar paquets. Seleccionem l'opció **Sí**.
 
