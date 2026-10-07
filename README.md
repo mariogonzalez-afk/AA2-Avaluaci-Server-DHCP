@@ -1,52 +1,16 @@
 # Mario González - AA2 Avaluació Server DHCP
 
+Repositori de l'activitat AA2 Avaluació Server DHCP, centrada en la instal·lació, configuració i comprovació d'un servidor DHCP utilitzant Kea sobre Ubuntu Server, amb validació mitjançant un client Zorin OS.
 
 
-
-##  Eines utilitzades a l'Activitat
-
-* **Zorin OS:** Màquina virtual client que sol·licita i rep la IP per DHCP.
-* **Netplan:** Eina de configuració de xarxa per assignar la IP estàtica al servidor.
-* **Kea DHCP:** Servei de DHCPv4 modular de darrera generació.
-* **Ubuntu Server 24.04/Linux:** Servidor encarregat de gestionar el servei DHCP.
-* **Wireshark:** Analitzador de paquets de xarxa per capturar la negociació DORA.
-
----
-
-##  Desenvolupament de la Pràctica Pas a Pas
-
-### 1. Preparació de Wireshark al Client
-
-Per poder capturar el trànsit de xarxa durant la negociació DHCP, primer hem preparat la màquina client instal·lant l'eina Wireshark amb les següents comandes:
-
-```bash
-sudo apt update
-sudo apt upgrade
-sudo apt install wireshark
-```
-
-![imatge](<./img/1.png>)
-![imatge](<./img/2.png>)
-
-Al instal·lar el paquet `wireshark-common`, el sistema pregunta si volem permetre que els usuaris no superusuaris puguin capturar paquets. Seleccionem l'opció **Sí**.
-
-![imatge](<./img/3.png>)
-
-Un cop instal·lat, iniciem l'aplicació des de la terminal per comprovar que la interfície gràfica s'obre correctament amb la comanda:
-
-```bash
-sudo wireshark
-```
-
-![imatge](<./img/4.png>)
-
----
-
-### 2. Configuració de les interfícies de xarxa al Servidor
+## Configuració de xarxa
 
 El servidor Ubuntu compta amb dues interfícies de xarxa:
 * **`enp0s3` (Adaptador 1)**: Mode **NAT** per mantenir la connexió a Internet.
 * **`enp0s8` (Adaptador 2)**: Mode **Xarxa Interna** per donar servei DHCP a la xarxa local.
+
+![imatge](./img/Vbox1server.png)
+![imatge](./img/Vbox2server.png)
 
 Comprovem l'estat inicial de les interfícies i la taula de rutes:
 
@@ -100,7 +64,7 @@ getent hosts ubuntu.com
 
 ---
 
-### 3. Instal·lació i configuració del servei Kea DHCP
+## Instal·lació Kea 
 
 Al servidor Ubuntu instal·lem el paquet del servidor Kea DHCP4:
 
@@ -126,11 +90,47 @@ sudo nano /etc/kea/kea-dhcp4.conf
 
 ![imatge](<./img/9.png>)
 
+## Instal·lació Wireshark a Zorin OS 
+
+Interfície de xarxa:
+* **Adaptador 1**: Mode **Xarxa Interna** per mantenir la connexió a Internet.
+
+![imatge](./img/Vbox1zorin.png)
+
+
+Per poder capturar el trànsit de xarxa durant la negociació DHCP, primer hem preparat la màquina client instal·lant l'eina Wireshark amb les següents comandes:
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install wireshark
+```
+
+![imatge](<./img/1.png>)
+![imatge](<./img/2.png>)
+
+Al instal·lar el paquet `wireshark-common`, el sistema pregunta si volem permetre que els usuaris no superusuaris puguin capturar paquets. Seleccionem l'opció **Sí**.
+
+![imatge](<./img/3.png>)
+
+Un cop instal·lat, iniciem l'aplicació des de la terminal per comprovar que la interfície gràfica s'obre correctament amb la comanda:
+
+```bash
+sudo wireshark
+```
+
+![imatge](<./img/4.png>)
 
 
 ---
 
-### 4. Validació, arrencada i comprovació de logs del servei
+## Anàlisi de trànsit
+
+![imatge](<./img/analisi.png>)
+
+![imatge](<./img/analisi2.png>)
+
+## Comprovació logs Kea
 
 Abans d'iniciar el servidor, hem de comprovar que la sintaxi JSON del fitxer de configuració sigui correcta:
 
