@@ -128,7 +128,7 @@ sudo wireshark
 
 ![imatge](<./img/analisi.png>)
 
-Anàlisi de aptura de paquets.
+Anàlisi de captura de paquets.
 
 ![imatge](<./img/analisi2.png>)
 
